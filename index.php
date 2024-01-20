@@ -1,8 +1,6 @@
 <?php 
 // require_once "core/constants.php";
 require_once "vendor/autoload.php";
-
-use Connect\Connect;
 use \Model\User;
 $user = new User();
 $post = new Model\Post();

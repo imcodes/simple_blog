@@ -1,4 +1,0 @@
-PDO::__construct(): Argument #1 ($dsn) must be a valid data source name
-PDO::__construct(): Argument #1 ($dsn) must be a valid data source name
-PDO::__construct(): Argument #1 ($dsn) must be a valid data source name
-PDO::__construct(): Argument #1 ($dsn) must be a valid data source name

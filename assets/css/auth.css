@@ -1,0 +1,140 @@
+@import url("reset.css");
+.container{
+    margin:3rem auto;
+    padding:1.5rem;
+    background-color: var(--dark1);
+    color:#eee;
+    border-radius:2rem;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.login{
+    max-width:400px;
+    width:100%;
+    overflow: hidden;
+}
+a{
+    color:var(--primary-color);
+}
+a:hover{
+    text-decoration: none;
+}
+
+.auth-header{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}
+
+.container img{
+    max-width: 170px;
+    min-width: 120px;
+    width:40%;
+}
+.auth-title{
+    font-size: 20px;
+}
+/* Some Utility clases */
+.w-75{
+    width:75vw !important;
+}
+.mb-1{
+    margin-bottom: 1rem;
+}
+.mb-2{
+    margin-bottom: 2rem;
+}
+.mt-1{
+    margin-top:1rem;
+}
+.mt-2{
+    margin-top:2rem;
+}
+.small-text{
+    font-size:11px;
+}
+.text-center{
+    text-align:center;
+}
+.d-flex{
+    display:flex;
+}
+/* /Utility class */
+
+/* Styling the form */
+
+.form-group{
+    display:flex;
+    flex-direction: column;
+    gap: 5px;
+
+}
+.action-group{
+    display:flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    padding:0.5rem 1rem;
+    border-radius:0.5rem;
+    border:none;
+    width:100%;
+}
+
+.form-group input[type='radio']{
+    display: inlin;
+}
+.btn{
+    font-weight: bold;
+    padding:0.5rem 0.8rem;
+    border-radius:0.5rem;
+    color:var(--light);
+    transition: all 0.3s linear;
+}
+button[type='submit']{
+    background:var(--primary-color);
+    color:var(--dark1);
+    border:1px solid var(--primary-color); 
+}
+button[type='reset']{
+    background:var(--secondary-color);
+    border:1px solid var(--secondary-color); 
+}
+
+button[type='submit']:hover{
+    background-color:var(--dark1);
+    color:var(--primary-color);
+    border-color:var(--primary-color);
+}
+button[type='reset']:hover{
+    background-color:var(--dark1);
+    color:var(--secondary-color);
+    border-color:var(--secondary-color);
+    
+}
+label > span{
+    color:var(--primary-color);
+}
+.row{
+    display: flex;
+    justify-content: space-between;
+}
+.col-6{
+    width:48%;
+}
+
+.radio-group{
+    justify-content:start;
+    gap:15px;
+}
+.radio-input{
+    gap:0.5rem
+}
+

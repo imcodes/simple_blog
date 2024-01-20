@@ -1,0 +1,22 @@
+{
+    "name": "sunshine/blog_demo",
+    "description": "'This is an autoload package for my awesome blog'",
+    "type": "project",
+    "require": {
+        "nesbot/carbon": "^2.72"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "core/src/",
+            "Traits\\": "core/src/Traits/"
+        },
+        "files": ["core/constants.php"]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ifeanyi Michael",
+            "email": "ifmichael24@gmail.com"
+        }
+    ]
+}

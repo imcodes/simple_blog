@@ -1,4 +1,32 @@
-<?php require_once "../vendo/autoload.php";?>
+<?php require_once "../init.php";
+    use Traits\Connection;
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pword'])){
+    $useremail = $_POST['useremail'];
+    $pword = $_POST['pword'];
+    $phash = md5($pword);
+
+    //connect to database
+    $conn = Connection::connect();
+    //find user
+    $qry = $conn->query("SELECT username,email,password,id FROM users WHERE username = '$useremail' or email = '$useremail'");
+    $user = $qry->fetch();
+    if(!$user){
+        $err = "<div class='alert alert-warning'>Incorrect User Credentials</div>";
+    }else{
+        if($user['password'] != $phash){
+            $err = "<div class='alert alert-warning'>Incorrect Password</div>";
+        } else{
+            //The password is correct then open a session
+          
+            $_SESSION['user'] = $user;
+
+            header('location:../dashboard');
+        }
+    }
+    
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +45,15 @@
             <h1 class="auth-title mb-2 mt-1">Member Login</h1>
         </div>
 
-        <form action="#" method="post">
+        <?php
+        if(isset($err) && !empty($err)) echo $err;
+        if(isset($msg) && !empty($msg)) echo $msg;
+         ?>
+
+        <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
             <div class="form-group mb-1">
                 <label for="useremail">Username/Email</label>
-                <input type="text" class="input" id="useremail" name="useremail" placeholder="Enter Your username or email">
+                <input type="text" value="<?= (isset($_POST['useremail'])) ? $_POST['useremail'] : '' ?>" class="input" id="useremail" name="useremail" placeholder="Enter Your username or email">
             </div>
 
             <div class="form-group mb-1">

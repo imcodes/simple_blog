@@ -1,5 +1,7 @@
 <?php
-include_once "config.php";
+// Require Database Constants
+require_once "db.config.php";
+
 define('ROOT_PATH',realpath(dirname(__DIR__)));
 define('ROOT_DIR',basename(dirname(__DIR__)));
 define('ASSET_DIR',ROOT_DIR."/assets/");
@@ -10,4 +12,6 @@ if($_SERVER['HTTP_HOST'] === 'localhost'){
 }else{
     define('SITE_URL',$_SERVER['HTTP_HOST'].'/');
 }
+
 define('SITE_LOGO',ASSET_URL."img/logo.png");
+define('SITE_FAVICON',ASSET_URL."img/logo.png");

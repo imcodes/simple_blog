@@ -10,7 +10,7 @@
             "": "core/src/",
             "Traits\\": "core/src/Traits/"
         },
-        "files": ["core/constants.php"]
+        "files": ["core/constants.php","core/utilities/helper.php"]
     },
     "license": "MIT",
     "authors": [

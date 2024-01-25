@@ -1,9 +1,10 @@
 <?php 
-// require_once "core/constants.php";
-require_once "vendor/autoload.php";
+require_once "init.php";
 use \Model\User;
 $user = new User();
 $post = new Model\Post();
+$userlist = $user->getAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,9 @@ $post = new Model\Post();
 </head>
 <body>
     <?php require_once "core/inc/nav.php"; ?>
-    <?php var_dump($post->getAll());?>
+    <?php foreach($userlist as $u){
+        echo "<li> User: ".$u["username"]." pword: ".$u["password"]."</li>";
+    }?>
 <?php require_once "core/inc/_footer_script.php"; ?>
 </body>
 </html>

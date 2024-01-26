@@ -15,19 +15,44 @@
              
             </nav>
             <nav class="auth-nav">
+                <?php if(isUserLoggedIn()){ //Loged in user option
+                     ?>
                 <ul>
+                    <li class='dropdown' >
+                    <a href="" class="dropdown-toggle" data-bs-toggle="dropdown">Hi, <?= ucwords($_SESSION['user']['username']) ?></a>
+                    <ul class="dropdown-menu logged-in">
+                        <li><a href="dashboard/" class="dropdown-item"> <i class="lni lni-dashboard"></i> Dashboard</a></li>
+                        <li><a href="auth/logout" class="dropdown-item"><i class='fa-solid fa-arrow-right-from-bracket'></i> Logout</a></li>
+                    </ul>
+                    </li>
+                </ul>
+                <?php }else{//Guest menu option
+                    ?>
+                    <ul>
                     <li><a href="auth">Login</a></li>
                     <li><a href="auth/register">Register</a></li>
                 </ul>
+                <?php
+                }?>
             </nav>
         </div>
 
-        <button class="mobile-icon">Menu</button>
+        <button class="mobile-icon btn btn-link text-white"><i class="lni lni-menu"></i></button>
     </header>
 
     <script>
         let micon = document.querySelector('.mobile-icon')
-        micon.onclick = () => {
+        micon.onclick = (e) => {
+            icon = e.target//.querySelector('i.lni')
+            if(icon.classList.contains('lni-menu')){
+                icon.classList.remove('lni-menu')
+                icon.classList.add('lni-close')
+            }
+            else if(icon.classList.contains('lni-close')){
+                icon.classList.remove('lni-close')
+                icon.classList.add('lni-menu')
+            }
+            
             let nav = document.querySelector('.navs')
             nav.classList.toggle('open')
         }

@@ -1,5 +1,6 @@
 <?php require_once "../init.php";
     use Traits\Connection;
+    validateLoginRedirect('../dashboard'); //Redirect to dashboard when Logged in
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pword'])){
     $useremail = $_POST['useremail'];
     $pword = $_POST['pword'];

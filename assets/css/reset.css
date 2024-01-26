@@ -5,6 +5,7 @@
     --dark3:#232323;
     --light:#fff;
     --secondary-color:#da3001;
+    --header-bg-color: teal;
 }
 *{
     margin:0;

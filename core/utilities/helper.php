@@ -16,6 +16,19 @@ function validateLogin(){
     return;
 }
 
+/**
+ * @param mixed $redirectTo //url for redirction
+ * @param boolean $when //Redirect when True if user is loged in or False if user is not loged in
+ */
+function validateLoginRedirect($redirectTo, $when = true){
+    if(isUserLoggedIn() === $when){
+        header("location:$redirectTo");
+        exit();
+    }
+
+    return;
+}
+
 function logout(){
     if(isUserLoggedIn()){
         unset($_SESSION['user']);
@@ -23,4 +36,8 @@ function logout(){
         exit();
     }
     return;
+}
+
+function log_error($msg){
+    error_log($msg."\r\n",3,ROOT_PATH.'/error.txt') ;
 }

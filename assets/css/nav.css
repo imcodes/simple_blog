@@ -14,33 +14,39 @@
 img.white-mono{
     filter: saturate(0) brightness(100);
 }
-.custom-header nav ul{
+.custom-header nav ul:not(.dropdown-menu.logged-in){
     list-style: none;
     display:flex;
 }
 .navs{
     display: flex;
 }
-.custom-header nav ul a{
+
+ul.dropdown-menu.logged-in.show {
+    background: var(--header-bg-color);
+}
+.custom-header nav ul:not(.dropdown-menu.logged-in) a{
     text-decoration: none;
     color:white;
     font-weight: bolder;
     display: inline-block;
     padding:1rem 1.3rem;
 }
-.custom-header nav ul a:hover{
+.custom-header nav ul:not(.dropdown-menu.logged-in) a:hover{
   background:hsla(0, 0%, 100%, .3);
 }
 
 .custom-header .mobile-icon{
     display:none;
+    transition:all .3s ease-in;
 }
 
 @media screen and (max-width:800px) {
     .mobile-icon{
         display: block !important;
+        font-size:2rem;
     }
-    .main-nav ul, .auth-nav ul{
+    .main-nav ul, .auth-nav ul:not(.dropdown-menu.logged-in){
         display: block !important;
        
     }

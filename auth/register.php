@@ -1,4 +1,12 @@
-<?php require_once "../core/constants.php";?>
+<?php require_once "../vendor/autoload.php";
+use Controller\Auth\Register;
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $Register = new Register();
+    $result = $Register->register($_REQUEST);
+    var_dump($result);
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +26,7 @@
             <h1 data-answer="mytitle" class="auth-title mb-2 mt-1">Member Registration</h1>
         </div>
 
-        <form action="#" method="post">
+        <form action="#" method="post" name="Register-Form">
             <div class="row mx-2">
                 <div class="form-group col-12 col-md-4">
                     <label for="fname"><i class="fa-regular fa-user"></i> Full Name <span>*</span></label>
@@ -39,21 +47,21 @@
             <div class="row mx-2">
                 <div class="col-12 col-md-6 form-group">
                     <label for="username">Username <span>*</span></label>
-                    <input type="text" id="username" name="username" placeholder="Enter username">
+                    <input type="text" id="username" name="username" required placeholder="Enter username">
                 </div>
                 <div class="col-12 col-md-6 form-group">
                     <label for="email">Email <span>*</span></label>
-                    <input type="email" id="email" name="email" placeholder="example@domain.com">
+                    <input type="email" id="email" name="email" required placeholder="example@domain.com">
                 </div>
             </div>
             <div class="row mx-2">
                 <div class="col-12 col-md-6 form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter Password">
+                    <input type="password" name="password" id="password" required placeholder="Enter Password">
                 </div>
                 <div class="col-12 col-md-6 form-group">
                     <label for="c-password">Confirm Password</label>
-                    <input type="password" name="c-password" id="c-password" placeholder="Repeat Password">
+                    <input type="password" name="c-password" id="c-password" required placeholder="Repeat Password">
                 </div>
             </div>
 

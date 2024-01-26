@@ -12,7 +12,7 @@ trait Connection{
             return self::$pdo;
         }
         catch(\Exception $e){
-            error_log($e->getMessage()."\r\n",3,ROOT_PATH.'/error.txt');
+            log_error($e->getMessage());
             die('Unable to establish database connection');
         }
     }

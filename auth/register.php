@@ -3,8 +3,8 @@ use Controller\Auth\Register;
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $Register = new Register();
     $result = $Register->register($_REQUEST);
-    var_dump($result);
-
+    $msg = implode(',',$result['msg']);
+        
 }
 ?>
 <!DOCTYPE html>
@@ -25,20 +25,27 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             </div>
             <h1 data-answer="mytitle" class="auth-title mb-2 mt-1">Member Registration</h1>
         </div>
-
+        
         <form action="#" method="post" name="Register-Form">
+            <div class='alert alert-warning'>
+                <?php
+            if($msg === "Please fill all required fileds" || "Username already taken"){
+                echo $msg;
+            }
+                ?>
+            </div>
             <div class="row mx-2">
                 <div class="form-group col-12 col-md-4">
                     <label for="fname"><i class="fa-regular fa-user"></i> Full Name <span>*</span></label>
-                    <input type="text" id="fname" name="fname" required placeholder="first-name">
+                    <input type="text" id="fname" name="fname" value="<?= (isset($_POST['fname'])) ? $_POST['fname'] : '' ?>" required placeholder="first-name">
                 </div>
                 <div class="form-group col-12 col-md-4">
                 <label for="mname"><i class="fa-regular fa-user"></i> Middle Name </label>
-                    <input type="text" id="mname" name="mname" placeholder="middle-names">
+                    <input type="text" value='<?= (isset($_POST['mname'])) ? $_POST['mname'] : '' ?>' id="mname" name="mname" placeholder="middle-names">
                 </div>
                 <div class="form-group col-12 col-md-4">
                 <label for="lname"><i class="fa-regular fa-user"></i> Last Name <span>*</span></label>
-                    <input type="text" id="lname" name="lname" required placeholder="surname">
+                    <input type="text" value="<?= (isset($_POST['lname'])) ? $_POST['lname'] : '' ?>" id="lname" name="lname" required placeholder="surname">
                 </div>
             </div>
 
@@ -47,21 +54,36 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <div class="row mx-2">
                 <div class="col-12 col-md-6 form-group">
                     <label for="username">Username <span>*</span></label>
-                    <input type="text" id="username" name="username" required placeholder="Enter username">
+                    <input type="text" id="username" name="username" value="<?= (isset($_POST['username'])) ? $_POST['username'] : '' ?>" required placeholder="Enter username">
                 </div>
                 <div class="col-12 col-md-6 form-group">
-                    <label for="email">Email <span>*</span></label>
-                    <input type="email" id="email" name="email" required placeholder="example@domain.com">
+                <div class='bg-warning'>
+                <?php
+            if($msg === "Email already taken"){
+                echo $msg;
+            }
+                ?>
+            </div>
+             <label for="email">Email <span>*</span></label>
+                    <input type="email" value="<?= (isset($_POST['email'])) ? $_POST['email'] : '' ?>" id="email" name="email" required placeholder="example@domain.com">
                 </div>
             </div>
-            <div class="row mx-2">
+            <div class='text-danger'>
+                <?php
+            if($msg === "Password Mismatch"){
+                echo $msg;
+            }
+                ?>
+            </div>
+            <div class="row mx-2"> 
+            
                 <div class="col-12 col-md-6 form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required placeholder="Enter Password">
+                    <input type="password" name="password" id="password" value="<?= (isset($_POST['password'])) ? $_POST['password'] : '' ?>"required placeholder="Enter Password">
                 </div>
                 <div class="col-12 col-md-6 form-group">
                     <label for="c-password">Confirm Password</label>
-                    <input type="password" name="c-password" id="c-password" required placeholder="Repeat Password">
+                    <input type="password" name="c-password" id="c-password" required value="<?= (isset($_POST['c-password'])) ? $_POST['c-password'] : '' ?>" placeholder="Repeat Password">
                 </div>
             </div>
 

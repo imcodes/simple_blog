@@ -4,7 +4,7 @@
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pword'])){
     $useremail = $_POST['useremail'];
     $pword = $_POST['pword'];
-    $phash = md5($pword);
+    //$phash = md5($pword);
 
     //connect to database
     $conn = Connection::connect();
@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pword'])){
     if(!$user){
         $err = "<div class='alert alert-warning'>Incorrect User Credentials</div>";
     }else{
-        if($user['password'] != $phash){
+        if(!password_verify($pword,$user['password'])){
             $err = "<div class='alert alert-warning'>Incorrect Password</div>";
         } else{
             //The password is correct then open a session
@@ -33,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pword'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="<?= SITE_FAVICON ?>" type="image/x-icon">
     <title>User Login</title>
     <?php require_once "../core/inc/_header_script.php"; ?>
     <link rel="stylesheet" href="../assets/css/auth.css">

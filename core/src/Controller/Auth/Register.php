@@ -5,6 +5,7 @@ use Model\User;
 class Register{
     function validate($data):Array{
         $output['status'] = true;
+        $errors = [];
 
         //Check required fields
         if(empty($data['fname']) || 
@@ -24,32 +25,27 @@ class Register{
         $User = new User();
         //Check if the username exists
         if($User->exists('username',$data['username'])){
-            $output =[
-                'status' => false,
-                'msg'=> ['Username' =>'Username already taken']
-            ];
+            $output =['status' => false];
+            $errors['username'] ='Username already taken';
         }
         //Check if the email exists
         if($User->exists('email',$data['email'])){
-            $output =[
-                'status'=> false,
-                'msg' => ['email'=> 'Email already taken']
-            ];
+            $output =[ 'status'=> false];
+            $errors['email'] = 'Email already taken';
         }
 
         //If the the confirm password matched with the password
         if($data['password'] != $data['c-password']){
-            $output =[
-                'status'=> false,
-                'msg'=> ['password'=> 'Password Mismatch']
-            ];
+            $output =['status'=> false];
+            $errors['password'] = 'Password Mismatch';
         }
 
         if(!$output['status']){
+            $output['msg'] = $errors;
             return $output;
         }
 
-        $output['data'] = $data;
+        $output['data'] = array_map(fn($d) => strip_tags(html_entity_decode($d)) ,$data);
         return $output;
         
     }
@@ -68,19 +64,19 @@ class Register{
         $data = $data['data'];
             $Data = [
                 'username'=> $data['username'],
-                'password'=> $data['password'],
+                'password'=> password_hash($data['password'],PASSWORD_BCRYPT),
                 'email'=> $data['email'],
                 'first_name'=> $data['fname'],
                 'middle_name'=> $data['mname'],
                 'last_name'=> $data['lname'],
             ];
-            $user->create($Data);
+            $user_data = $user->create($Data);
             if(!$user){
                 log_error($user->db->errorInfo());
-                return false;
+                return ['status' => false];
             }
 
-            return true;
+            return ['status' => true, 'data' => ['user_info'=>$user_data]];
            
 
     }

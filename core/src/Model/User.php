@@ -4,7 +4,22 @@ namespace Model;
 class User extends BaseModel{
     protected $tableName = 'users';
 
-    public function create(Array $data){}
+    /**
+     * Method to create a new user.
+     */
+
+    public function create(Array $data){
+        $insert_columns = implode(',',array_keys($data));
+        $insert_values = "'".implode("','",array_values($data))."'";
+        $sql = "INSERT INTO {$this->getTableName()} ({$insert_columns}) VALUES({$insert_values})";
+        $stm = $this->db->prepare($sql);
+        if($stm->execute()){
+            $get_user_sql = "SELECT * FROM {$this->getTableName()} WHERE id = {$this->db->lastInsertId()}";
+            $stm = $this->db->prepare($get_user_sql);
+            $stm->execute();
+            return $stm->fetch();
+        }
+    }
 
     public function update($userId,Array $data){}
 

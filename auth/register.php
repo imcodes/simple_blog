@@ -1,9 +1,13 @@
-<?php require_once "../vendor/autoload.php";
+<?php require_once "../init.php";
 use Controller\Auth\Register;
+validateLoginRedirect('../'); //Redirect to dashboard when Logged in
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $Register = new Register();
     $result = $Register->register($_REQUEST);
-    $msg = implode(',',$result['msg']);
+    $isSuccess = $result['status'];
+    $reg_data =(!$isSuccess) ? $result['msg'] : $result['data'];
+    //Clear the form data on success
+    $_POST = ($isSuccess) ? [] : $_POST;
         
 }
 ?>
@@ -12,6 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="<?= SITE_FAVICON ?>" type="image/x-icon">
     <title>Registration</title>
     <?php require_once "../core/inc/_header_script.php"; ?>
     <link rel="stylesheet" href="../assets/css/auth.css">
@@ -27,14 +32,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
         
         <form action="#" method="post" name="Register-Form">
-            <div class='alert alert-warning'>
+            
                 <?php
-            if($msg === "Please fill all required fileds" || "Username already taken"){
-                echo $msg;
+                $msg='';
+            if(isset($reg_data)){
+                $general_err = (!$isSuccess && array_key_exists('required',$reg_data))? $reg_data['required'] : '';
+                if(!$isSuccess && empty($general_err)) {
+                   $msg = display_message('Please Correct the errors on the form','danger');
+                }elseif($isSuccess){
+                    $msg = display_message('Registration Successfull!','success');
+                    
+                }else{
+                    $msg = display_message($general_err,'danger');
+                }
+
+                echo "<div class='row'><div class='col-8 offset-2'>$msg</div></div>";
             }
                 ?>
-            </div>
-            <div class="row mx-2">
+            <div class="row mx-2 my-3">
                 <div class="form-group col-12 col-md-4">
                     <label for="fname"><i class="fa-regular fa-user"></i> Full Name <span>*</span></label>
                     <input type="text" id="fname" name="fname" value="<?= (isset($_POST['fname'])) ? $_POST['fname'] : '' ?>" required placeholder="first-name">
@@ -51,35 +66,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
            
 
-            <div class="row mx-2">
+            <div class="row mx-2 my-3">
                 <div class="col-12 col-md-6 form-group">
                     <label for="username">Username <span>*</span></label>
                     <input type="text" id="username" name="username" value="<?= (isset($_POST['username'])) ? $_POST['username'] : '' ?>" required placeholder="Enter username">
+                    <?= (isset($reg_data['username']) ) ? "<span class='text-danger'>{$reg_data['username']}" : ''?>
                 </div>
+
                 <div class="col-12 col-md-6 form-group">
-                <div class='bg-warning'>
-                <?php
-            if($msg === "Email already taken"){
-                echo $msg;
-            }
-                ?>
-            </div>
-             <label for="email">Email <span>*</span></label>
+                    <label for="email">Email <span>*</span></label>
                     <input type="email" value="<?= (isset($_POST['email'])) ? $_POST['email'] : '' ?>" id="email" name="email" required placeholder="example@domain.com">
+                    <?= (isset($reg_data['email']) ) ? "<span class='text-danger'>{$reg_data['email']}" : ''?>
                 </div>
             </div>
-            <div class='text-danger'>
-                <?php
-            if($msg === "Password Mismatch"){
-                echo $msg;
-            }
-                ?>
-            </div>
-            <div class="row mx-2"> 
+            
+            <div class="row mx-2 my-3"> 
             
                 <div class="col-12 col-md-6 form-group">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" value="<?= (isset($_POST['password'])) ? $_POST['password'] : '' ?>"required placeholder="Enter Password">
+                    <?= (isset($reg_data['password']) ) ? "<span class='text-danger'>{$reg_data['password']}" : ''?>
                 </div>
                 <div class="col-12 col-md-6 form-group">
                     <label for="c-password">Confirm Password</label>

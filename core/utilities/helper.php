@@ -41,3 +41,13 @@ function logout(){
 function log_error($msg){
     error_log($msg."\r\n",3,ROOT_PATH.'/error.txt') ;
 }
+
+function display_message(Array|String $msg, $type = 'warning'){
+    //$alert_type = $type == 'error'?'warning':'success';
+    $d_msg = (is_array($msg)) ? '<ol><li>'.implode('</li><li>', $msg).'</li></ol>' : $msg;
+    $display = <<<D
+        <div class="alert alert-$type">$d_msg</div>
+    D;
+
+    return $display;
+}

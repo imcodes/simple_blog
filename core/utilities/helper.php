@@ -46,7 +46,11 @@ function display_message(Array|String $msg, $type = 'warning'){
     //$alert_type = $type == 'error'?'warning':'success';
     $d_msg = (is_array($msg)) ? '<ol><li>'.implode('</li><li>', $msg).'</li></ol>' : $msg;
     $display = <<<D
-        <div class="alert alert-$type">$d_msg</div>
+        <div class="alert alert-$type alert-dismissible" role="alert">
+        $d_msg
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
     D;
 
     return $display;

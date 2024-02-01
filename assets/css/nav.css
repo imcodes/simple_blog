@@ -40,6 +40,14 @@ ul.dropdown-menu.logged-in.show {
     display:none;
     transition:all .3s ease-in;
 }
+.custom-tooltip {
+    --bs-tooltip-bg: var(--header-bg-color);
+    --bs-tooltip-color: var(--bs-white);
+  }
+
+.bg-header{
+    background-color:var(--header-bg-color);
+}
 
 @media screen and (max-width:800px) {
     .mobile-icon{

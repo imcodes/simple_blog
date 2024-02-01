@@ -1,6 +1,6 @@
 :root{
     --primary-color:#00d48a;
-    --dark1:#3f3f3f;
+    --dark1:#2c2c2c;
     --dark2:#8b8b8b;
     --dark3:#232323;
     --light:#fff;
@@ -13,7 +13,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: var(--dark3);
+    background-color: var(--dark1);
     color:var(--light);
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

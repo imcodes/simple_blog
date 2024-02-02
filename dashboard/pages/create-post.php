@@ -11,11 +11,11 @@
 
 <div class="mt-5 w-100 px-4 mx-auto text-dark">
     <div class="d-flex justify-content-end gap-3 mb-4">
-        <a href="" class="btn btn-primary"> <i class="fa fa-eye"></i> View Post Lists</a>
+        <a href="<?= SITE_URL.'dashboard?page=manage-post'?>" class="btn btn-primary"> <i class="fa fa-eye"></i> Manage Post</a>
     </div>
     <!-- Form -->
     <form action="<?= SITE_URL ?>dashboard/?page=create-post" novalidate class="row g-3 needs-validation shadow  rounded-4 bg-light p-4" method="post" enctype="multipart/form-data">
-        <?= (!$isSuccess) ? display_message($result_data) : display_message('Post Created Successfully!','success')?>
+        <?php if(isset($isSuccess)) (!$isSuccess) ? display_message($result_data) : display_message('Post Created Successfully!','success')?>
           <div class="col-12 my-3">
             <label for="validationCustom01" class="form-label">Post Title</label>
             <input type="text" maxlength="80" class="form-control" value="<?= (isset($_POST['title']) && !$isSuccess) ? $_POST['title']: ''?>" name="title" id="validationCustom01"  required>

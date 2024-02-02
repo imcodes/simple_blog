@@ -52,4 +52,6 @@
     </div>
 </div>
 
-<?php require_once "partials/_post-list.php";?>
+<div class="container">
+    <?php require_once "partials/_post-list.php";?>
+</div>

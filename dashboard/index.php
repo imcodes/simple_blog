@@ -17,21 +17,23 @@ $page_name = 'pages/'.$page_name;
     <?php require_once "../core/inc/_header_script.php"; ?>
     <link rel="stylesheet" href="<?= ASSET_URL.'css/dashboard.css' ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropify@0.2.2/dist/css/dropify.min.css">
+    <!-- Datatable -->
+    <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/datatables.min.css" rel="stylesheet">
     <title>Dashboard</title>
 </head>
 <body>
     
     <main class='d-flex' style="min-height:100vh;">
     <!-- Side Navigation -->
-        <aside class="sidenav pt-3 bg-header">
+        <aside class="d-none d-md-block sidenav pt-3 bg-header">
             <div class="logo ms-3">
                 <img class='white-mono' src="<?= SITE_LOGO ?>" alt="Official Logo">
             </div>
             <ul class='nav flex-column gap-2 mt-3'>
-                <li class="nav-item"><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard'?>"><i class="lni lni-dashboard"></i> <span class="ms-2">Dashboard</span></a></li>
-                <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard?page=manage-post'?>"><i class="lni lni-list"></i> <span class="ms-2">Manage Post</span></a></li>
-                <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard?page=profile'?>"><i class="lni lni-user"></i> <span class="ms-2">Profile</span></a></li>
-                <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'auth/logout'?>"><i class='fa-solid fa-arrow-right-from-bracket'></i> <span class="ms-2">Logout</span></a></li>
+                <li class="nav-item"><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard'?>"><i class="lni lni-dashboard"></i> <span class="ms-2 link-title">Dashboard</span></a></li>
+                <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard?page=manage-post'?>"><i class="lni lni-list"></i> <span class="ms-2 link-title">Manage Post</span></a></li>
+                <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard?page=profile'?>"><i class="lni lni-user"></i> <span class="ms-2 link-title">Profile</span></a></li>
+                <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'auth/logout'?>"><i class='fa-solid fa-arrow-right-from-bracket'></i> <span class="ms-2 link-title">Logout</span></a></li>
             </ul>
         </aside>
 
@@ -65,7 +67,12 @@ $page_name = 'pages/'.$page_name;
 
 <script src="https://cdn.tiny.cloud/1/esmy1m490b80wgrof2310i27745h16qblysc1xt4339ns830/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<!-- Datatable Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-1.13.8/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/datatables.min.js"></script>
+
+    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
 <script>
   tinymce.init({
     selector: 'textarea.tiny-editor',

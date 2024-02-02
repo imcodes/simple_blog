@@ -30,18 +30,22 @@ class BaseModel{
 
     /**
      * Method to create a new user.
+     * @return Array|Bool
      */
 
-     public function create(Array $data){
+     public function create(Array $data):Array|Bool{
         $insert_columns = implode(',',array_keys($data));
         $insert_values = "'".implode("','",array_values($data))."'";
         $sql = "INSERT INTO {$this->getTableName()} ({$insert_columns}) VALUES({$insert_values})";
         $stm = $this->db->prepare($sql);
         if($stm->execute()){
-            $get_user_sql = "SELECT * FROM {$this->getTableName()} WHERE id = {$this->db->lastInsertId()}";
-            $stm = $this->db->prepare($get_user_sql);
+            $get_model_sql = "SELECT * FROM {$this->getTableName()} WHERE id = {$this->db->lastInsertId()}";
+            $stm = $this->db->prepare($get_model_sql);
             $stm->execute();
             return $stm->fetch();
+        }else{
+            log_error($stm->errorInfo());
+            return false;
         }
     }
 }

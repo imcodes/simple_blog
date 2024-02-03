@@ -20,6 +20,8 @@ img.white-mono{
 }
 .navs{
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 ul.dropdown-menu.logged-in.show {

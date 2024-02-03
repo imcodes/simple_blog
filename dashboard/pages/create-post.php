@@ -15,7 +15,7 @@
     </div>
     <!-- Form -->
     <form action="<?= SITE_URL ?>dashboard/?page=create-post" novalidate class="row g-3 needs-validation shadow  rounded-4 bg-light p-4" method="post" enctype="multipart/form-data">
-        <?php if(isset($isSuccess)) (!$isSuccess) ? display_message($result_data) : display_message('Post Created Successfully!','success')?>
+        <?php if(isset($isSuccess)) (!$isSuccess) ? display_message($result_data) : display_message('Post Created Successfully!','success'); ?>
           <div class="col-12 my-3">
             <label for="validationCustom01" class="form-label">Post Title</label>
             <input type="text" maxlength="80" class="form-control" value="<?= (isset($_POST['title']) && !$isSuccess) ? $_POST['title']: ''?>" name="title" id="validationCustom01"  required>

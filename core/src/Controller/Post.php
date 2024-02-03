@@ -54,7 +54,7 @@ class Post{
         // Store data in the database
         $data = [
             'title'=> $title,
-            'content'=> htmlentities($content),
+            'content'=> $content,
             'image' => (isset($filename)) ? $target_dir_url.$filename : null,
             'user_id' => $_SESSION['user']['id'],
         ];
@@ -68,5 +68,14 @@ class Post{
         $output['status'] = true;
         $output['data'] = ['post' => $nPost];
         return $output;
+    }
+
+    public function getAllWithUser(Array $by = [], $columns = ['*'],$user_columns = ['*']){
+        $post = new P();
+        $records = $post->getWithUser($by,$columns,$user_columns);
+        if($records){
+           
+            return $records;
+        }
     }
 }

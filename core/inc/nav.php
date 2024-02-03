@@ -11,6 +11,14 @@
                     <li><a href="#">Entertainment</a></li>
                     <li><a href="#">Politics</a></li>
                     <li><a href="#">Contact Us</a></li>
+                    <li><form action="" id="searchForm" class='mt-2'>
+                    <div class="input-group">
+                        <input type="search" id="search" name="search" placeholder="Search for News..." class="form-control" id="">
+                        <div class="bg-white px-2 input-group-prepend">
+                            <i class=" form-addon fa fa-search text-dark" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </form></li>
                 </ul>
              
             </nav>

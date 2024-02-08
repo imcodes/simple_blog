@@ -45,6 +45,9 @@ body{
     border-radius: 30px;
     box-shadow: #0009 0px 8px 8px;
 }
+.my-modal .card-body div:last-child{
+    overflow: hidden;
+}
 
 .my-modal.hide-modal{
     display:none;

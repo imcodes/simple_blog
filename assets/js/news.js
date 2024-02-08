@@ -1,6 +1,6 @@
 import moment from '../../node_modules/moment/dist/moment.js'
 export class News{
-    constructor(apiKey = null,keyword = ''){
+    constructor(url,apiKey = null,keyword = ''){
         this.setKeyword(keyword) //set the keyword upon instantiation
         this.setBaseUrl(url)
         this.setApiKey(apiKey)
@@ -35,7 +35,7 @@ export class News{
     getNewsList(){
         const url = this.getUrl() + '&q='+this.getKeyword()
         
-        const response = fetch({
+        const response = fetch(url,{
             method: 'get',
             // crossDomain: true,
             headers: {
@@ -68,7 +68,7 @@ export class News{
         return List.then(NewsList => {
             const News = NewsList
             
-            const news = News.articles.filter(t => {
+            const news = News.filter(t => {
                 return (by == 'title') ? t.title == data : t.id == data
            })
            return news
@@ -81,8 +81,7 @@ export class News{
         return new Promise(resolve => {
             target.innerHTML = 'loading'
             this.newsList.then(list => {
-                console.log('hello ')
-                const Articles = list.articles
+                const Articles = list
                 target.innerHTML = ''
                 Articles.map(article => {
                     target.innerHTML += this.showListTemplate(article)

@@ -15,6 +15,7 @@ $userlist = $user->getAll();
     <title>Awesome Blog</title>
     <?php require_once "core/inc/_header_script.php"; ?>
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/news.css">
 </head>
 <body>
     <?php require_once "core/inc/nav.php"; ?>

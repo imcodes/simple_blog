@@ -70,6 +70,71 @@ class Post{
         return $output;
     }
 
+    public function updatePost($req){
+        $output = ['status'=>false];
+
+        //Remove white space and other chars from the begining and end of each input string
+        $title = ucwords(trim($req["title"]));
+        $content = trim($req["content"]);
+        $pid = $req["id"];
+
+        //Check for required fields
+        if(empty($title)){ 
+            $output['error'] = ['title' => 'The Title field must not be empty'];
+            return $output;
+        }
+        if(empty($content)){ 
+            $output['error'] = ['content' => 'The Blog post Must have a conntent'];
+            return $output;
+        }
+
+        $Post = new p();//Instanciate the post model
+
+        // handle file only if it was uploaded.
+        if(!empty($req['FILES']['fimage']['name'])){
+            $target_dir = ASSET_PATH."img/posts/";
+
+            //get the current post image
+            $oldImg = $Post->findById($pid, [ 'image' ]);
+            $oldImgPath = ASSET_PATH.pathinfo($oldImg['image'],PATHINFO_FILENAME);
+
+            $target_dir_url = ASSET_URL.'img/posts/';
+            //Define the name to store our image with
+            $file_ext = pathinfo($req['FILES']['fimage']['name'],PATHINFO_EXTENSION);
+            $filename_arr = str_word_count(strtolower($title),1);//return all words in array
+            $filename = array_splice($filename_arr,0,3); // get the first 3 arrays from the word array
+            $filename = implode('_', $filename).'_'.time().'.'.$file_ext; //Join the array with _ and concatenate with timestamp and file extension
+            
+            $uploadFile = handleFileUpload($req['FILES']['fimage'],$target_dir, $filename,deleteOld:$oldImgPath);
+            if($uploadFile !== true){
+                $output['error'] = $uploadFile;
+                return $output;
+            }
+        }
+
+        // Store data in the database
+        $data = [
+            'title'=> $title,
+            'content'=> $content,
+            'user_id' => $_SESSION['user']['id'],
+        ];
+        if(!empty($req['FILES']['fimage']['name'])){
+            $data['image'] = (isset($filename)) ? $target_dir_url.$filename : null;
+        }
+
+        $nPost = $Post->update($data,$pid);
+        if(!$nPost){
+            $output['error'] = ['sql_error'=>"Oops! Unable to Update post"];
+            return $output;
+        }
+
+        $output['status'] = true;
+        $output['data'] = ['post' => $nPost];
+        return $output;
+    }
+
+    public function deletePost($req){}
+
     public function getAllWithUser(Array $by = [], $columns = ['*'],$user_columns = ['*']){
         $post = new P();
         $records = $post->getWithUser($by,$columns,$user_columns);

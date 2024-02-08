@@ -1,6 +1,6 @@
 <?php
 $Post = new Model\Post();
-$PostLists = $Post->getAll();
+$PostLists = $Post->find(['user_id'=>$_SESSION['user']['id']]);
 ?>
 <div class=" my-3 table-responsive">
     <?php

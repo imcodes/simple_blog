@@ -35,9 +35,13 @@ class BaseModel{
 
      public function create(Array $data):Array|Bool{
         $insert_columns = implode(',',array_keys($data));
-        $insert_values = "'".implode("','",array_values($data))."'";
-        $sql = "INSERT INTO {$this->getTableName()} ({$insert_columns}) VALUES({$insert_values})";
+        $insert_param = ':'.implode(', :',array_keys($data));
+        // $insert_values = "'".implode("','",array_values($data))."'";
+        $sql = "INSERT INTO {$this->getTableName()} ({$insert_columns}) VALUES({$insert_param})";
         $stm = $this->db->prepare($sql);
+        foreach ($data as $column => $value){
+            $stm->bindValue(":$column", $value);
+        }
         if($stm->execute()){
             $get_model_sql = "SELECT * FROM {$this->getTableName()} WHERE id = {$this->db->lastInsertId()}";
             $stm = $this->db->prepare($get_model_sql);
@@ -49,7 +53,34 @@ class BaseModel{
         }
     }
 
-    public function find(Array $by = [], Array $columns = ['*']){
+    public function update(Array $data, $id){
+        // $update_columns = implode(",",array_keys($data));
+        $set_columns = '';
+        foreach($data as $key => $value){
+            $set_columns .= "$key = :$key";
+            $set_columns .= ($key !== array_key_last($data)) ? "," : "";
+        }
+
+        $sql = "UPDATE {$this->getTableName()} SET $set_columns  WHERE id = :id";
+        $stm = $this->db->prepare($sql);
+        // die($sql);
+        foreach ($data as $column => $value){
+            $stm->bindValue(":$column", $value);
+        }
+        $stm->bindValue(':id',$id);
+        return ($stm->execute()) ? true : false;
+    }
+
+public function delete($id){
+    //
+}    
+
+    /**
+     * @param Array $by
+     * @param $columns
+     * @return Bool|Array returns false if error occurs or record found, otherwise returns array of data
+     */
+    public function find(Array $by = [], Array $columns = ['*']):Array|Bool{
         if(empty($by)){ return false;}
 
         $columns = implode(',', $columns);
@@ -59,8 +90,13 @@ class BaseModel{
         }
 
         $stm = $this->db->prepare($query);
-        $result = $stm->execute()->fetchAll();
-        return $result;
+        $result = $stm->execute();
+        return ($result) ? $stm->fetchAll(\PDO::FETCH_ASSOC) : false;
+    }
+
+    public function findById($id, Array $columns = ['*']){
+        $data = $this->find(['id' => $id],$columns);
+        return ($data) ? $data[0] : false;
     }
 
     public function exists($column, $value){

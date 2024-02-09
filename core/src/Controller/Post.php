@@ -143,4 +143,24 @@ class Post{
             return $records;
         }
     }
+
+    
+    /**
+    * @param $by Required: receives an associative array where the key is the database to column and the value is an indexed array
+    * eg: ['id'=>[4],'created_at'=['2023-01-24','<'],'username'=>[('user1','user2'),in]]
+    * @param $compare Optional: Holds the comparison between the two search statements Accepted values ['and' | 'or']. Default: and
+    * @param $columns Optional: Takes array of columns to be returned by search query default is [*]
+    * @param $user_columns Optional: Takes array of columns from the user table that will be returned. Default is [*]
+    * @return Array,Bool: Returns an array of data if found or false if not found.
+     */
+    public function getSearchWithUser(Array $by, $compare = 'and', $columns = ['*'],$user_columns = ['*']):Array|Bool{
+        $post = new P();
+        $records = $post->searchWithUser($by,$compare, $columns,$user_columns);
+        if($records){
+           
+            return $records;
+        }
+
+        return false;
+    }
 }

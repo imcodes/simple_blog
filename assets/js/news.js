@@ -33,7 +33,8 @@ export class News{
     }
 
     getNewsList(){
-        const url = this.getUrl() + '&q='+this.getKeyword()
+        const urlParam =  (this.getKeyword() != '') ? '&q='+this.getKeyword() : ''
+        const url = this.getUrl() + urlParam
         
         const response = fetch(url,{
             method: 'get',
@@ -136,23 +137,33 @@ export class News{
         
         <div class="my-modal-content">
             <div class="modal-display">
-                <div class="card">
+                <div class="card" id='news-content'>
                     <div class="card-header p-0 float-title">
                         <img class="title-image border-rounded w-100" src="${image}" alt="${title}">
                         <h2 class="card-title px-5 py-2">${title}</h2>
                     </div>
                     <div class="card-body px-5 py-2">
                         <aside class="meta-data row py-3">
-                            <div class="col-12 col-md-6" id="detail-author">
+                            <div class="col-12 col-md-3" id="detail-author">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                    <span>${author}</span>
+                                    <span>By: ${author}</span>
                             </div>
-                            <div class="col-12 col-md-6" id="detail-pub-date">
+                            <div class="col-12 col-md-3" id="detail-pub-date">
                                 <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                                    <span>${created_at}</span>
+                                    <span>Posted on: ${created_at}</span>
                             </div>
+                            <div class="col-12 col-md-6" id="speach-control">
+                                <div class="input-group mb-3">
+                                    <select class="form-control" id="voice-selector" aria-label="" aria-describedby="btn-speak">
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text py-3" id="btn-speak"><i class="fa fa-volume-up"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </aside>
-                        <div class="py-3">
+                        <div class="py-3" >
                             <p>${content}</p>
                         </div>
 
@@ -181,10 +192,29 @@ export class News{
             mTemplate.onclick = e => {
                 //remove the clicked target from the document body
                 bodyElement.removeChild(e.target)
+                cancelRead()
             }
 
             //add the Modal template to the document body alongside the event Listner and handler
             bodyElement.appendChild(mTemplate)
+
+            //Grab the speach button
+            const btnSpeak = document.querySelector('#btn-speak')
+            const voiceSelector = document.querySelector('#voice-selector')
+            //listen for change
+            voiceSelector.onchange = e => {
+               let vIndex =  voiceSelector.selectedOptions[0].getAttribute('data-voice-index')
+               const wasReading = speaker.speaking;
+                cancelRead()
+                setVoice(vIndex)
+               if(wasReading) readNews('#news-content')
+
+            }
+            populateVoiceList()
+            btnSpeak.onclick = e => {
+                console.log('should speak')
+                readNews('#news-content')
+            }
         })
     }
 
@@ -201,5 +231,7 @@ export class News{
         })
         
     }
+
+    
 
 }

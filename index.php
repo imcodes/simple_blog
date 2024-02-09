@@ -39,6 +39,7 @@ $userlist = $user->getAll();
 
     
 <?php require_once "core/inc/_footer_script.php"; ?>
+<script src="./assets/js/speech.js"></script>
 
 <!-- Custom scritp -->
 <script type="module">
@@ -46,32 +47,32 @@ $userlist = $user->getAll();
         const proxyUrl = "https://cors-anywhere.herokuapp.com/"
         // const url = `${proxyUrl}https://newsapi.org/v2/everything?sortBy=publishedAt`
         const url = `<?= SITE_URL.'api/getpost?' ?>`
-        const N = new News(url,'d1ab8e0e75c641d98fb7dd3c6756e7ba','blockchain')
+        const N = new News(url,'d1ab8e0e75c641d98fb7dd3c6756e7ba')
         
 
         N.getNewsList()
         const nlist = document.getElementById('news-list')
-        const skwd = document.querySelector('#searchKeyword > span')
+        const skwd = document.querySelector('#searchKeyword')
         N.displayNewsList(nlist).then( output => {
             N.handlePop(output)
         })
 
         //display the active search keyword on the webpage
-        skwd.innerHTML = N.getKeyword();
+        skwd.innerHTML = (N.getKeyword() != '') ? 'Showings Articles with keywords: '+ N.getKeyword(): 'Showing All Articles';
         
         // Handle the Search Opeartion
         const searchF = document.getElementById('searchForm')
         searchF.onsubmit = e => {
             e.preventDefault() //ignore the default behaviour of the form submit (prevents the form submission)
             const s = document.getElementById('search').value
-            if(s == '') {
+            /* if(s == '') {
                 alert('Search input must not be empty')
                 return false
-            }
+            } */
 
             N.setKeyword(s) //set the user search keyword for the news object
             N.getNewsList() //get newlist again for the new set keyword
-            skwd.innerHTML = N.getKeyword();
+            skwd.innerHTML = (N.getKeyword() != '') ? 'Showings Articles with keywords: '+ N.getKeyword(): 'Showing All Articles';
             const HtmlOuptut = N.displayNewsList(nlist)
 
             HtmlOuptut.then((tag)=>{

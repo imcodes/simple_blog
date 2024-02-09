@@ -75,6 +75,38 @@ public function delete($id){
     //
 }    
 
+/**
+ * @param $by receives an associative array where the key is the database to column and the value is an indexed array
+ * eg: ['id'=>[4],'created_at'=['2023-01-24','<'],'username'=>[('user1','user2'),in]]
+ * @param $compare: Holds the comparison between the two search statements Accepted values ['and' | 'or']. Default: and
+ * @param $columns: Takes array of columns to be returned by search query default is [*]
+ * @return Array,Bool: Returns an array of data if found or false if not found.
+ */
+public function search(Array $by, $compare = 'and', Array $columns = ['*']):Array|Bool{
+    $columns = implode(', ',$columns);
+    $whereClause = '';
+    foreach($by as $key => $value){
+        $operator = (isset($value[1])) ? $value[1] : '=';
+        $searchStr = (strtolower($operator) === 'like')? "%{$value[0]}%" : $value[0];
+        $whereClause .= "$key $operator '$searchStr'";
+        if(array_key_last($by) != $key){
+            $whereClause .= " $compare ";
+        }
+    }
+    $sql = "SELECT $columns FROM {$this->getTableName()} WHERE $whereClause";
+    // die($sql);
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    $posts = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    if(!$posts){
+        log_error($stmt->errorInfo());
+        return false;
+    }
+    return $posts;
+}
+//['title'=>['value','='],'content'=>['keyword','<']]
+//SELECT * FROM TABLE WHERE column LIKE %keyword% and
+
     /**
      * @param Array $by
      * @param $columns

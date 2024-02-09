@@ -44,6 +44,38 @@ class Post extends BaseModel{
         return $data;
     }
 
+    public function searchWithUser( Array $by, $compare = 'and', $columns = ['*'],$user_columns = ['*'] ):Array|Bool {
+        $userColumns = implode(', ', $user_columns);
+        //Always ensure that we get the user_id column in the search due to the relationship
+        if (!in_array('*', $columns) && !in_array('user_id',$columns) ) {
+            array_push($columns,'user_id');
+        }
+        $posts = $this->search($by,$compare,$columns);
+        if(!$posts){
+            return false;
+        }
+        //Get the related relationship
+        $data = [];
+        foreach( $posts as $post ){
+            $sql = "SELECT {$userColumns} FROM {$this->relation} WHERE id = '{$post['user_id']}'";
+    
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if(!$user){
+                $post['user'] = null;
+                $data[] = $post;
+                continue;
+            }
+            $post['author'] = $user['username'];
+            $post['userInfo'] = $user;
+            $data[] = $post;
+        }
+
+        return $data;
+
+    }
+
     /* {
         [
             'id' => 1,

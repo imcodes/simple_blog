@@ -38,7 +38,7 @@
                     ?>
                     <ul>
                     <li><a href="auth">Login</a></li>
-                    <li><a href="auth/register">Register</a></li>
+                    <li><a href="auth/register.php">Register</a></li>
                 </ul>
                 <?php
                 }?>

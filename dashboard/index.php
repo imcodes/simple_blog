@@ -33,7 +33,7 @@ $page_name = 'pages/'.$page_name;
                 <li class="nav-item"><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard'?>"><i class="lni lni-dashboard"></i> <span class="ms-2 link-title">Dashboard</span></a></li>
                 <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard?page=manage-post'?>"><i class="lni lni-list"></i> <span class="ms-2 link-title">Manage Post</span></a></li>
                 <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'dashboard?page=profile'?>"><i class="lni lni-user"></i> <span class="ms-2 link-title">Profile</span></a></li>
-                <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'auth/logout'?>"><i class='fa-solid fa-arrow-right-from-bracket'></i> <span class="ms-2 link-title">Logout</span></a></li>
+                <li class="nav-item "><a class="nav-link link-light link-opacity-75-hover" href="<?= SITE_URL.'auth/logout.php'?>"><i class='fa-solid fa-arrow-right-from-bracket'></i> <span class="ms-2 link-title">Logout</span></a></li>
             </ul>
         </aside>
 

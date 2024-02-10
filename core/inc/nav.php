@@ -30,7 +30,7 @@
                     <a href="" class="dropdown-toggle" data-bs-toggle="dropdown">Hi, <?= ucwords($_SESSION['user']['username']) ?></a>
                     <ul class="dropdown-menu logged-in">
                         <li><a href="dashboard/" class="dropdown-item"> <i class="lni lni-dashboard"></i> Dashboard</a></li>
-                        <li><a href="auth/logout" class="dropdown-item"><i class='fa-solid fa-arrow-right-from-bracket'></i> Logout</a></li>
+                        <li><a href="auth/logout.php" class="dropdown-item"><i class='fa-solid fa-arrow-right-from-bracket'></i> Logout</a></li>
                     </ul>
                     </li>
                 </ul>

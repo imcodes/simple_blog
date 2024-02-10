@@ -46,7 +46,7 @@ $userlist = $user->getAll();
         import {News} from './assets/js/news.js'
         const proxyUrl = "https://cors-anywhere.herokuapp.com/"
         // const url = `${proxyUrl}https://newsapi.org/v2/everything?sortBy=publishedAt`
-        const url = `<?= SITE_URL.'api/getpost?' ?>`
+        const url = `<?= SITE_URL.'api/getpost.php?' ?>`
         const N = new News(url,'d1ab8e0e75c641d98fb7dd3c6756e7ba')
         
 

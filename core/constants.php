@@ -10,7 +10,7 @@ define('ASSET_DIR',ROOT_DIR."/assets/");
 if($_SERVER['HTTP_HOST'] === 'localhost'){
     define('SITE_URL','http://'.$_SERVER['HTTP_HOST'].'/'.ROOT_DIR.'/');
 }else{
-    define('SITE_URL','http://'.$_SERVER['HTTP_HOST'].'/');
+    define('SITE_URL','https://'.$_SERVER['HTTP_HOST'].'/');
 }
 
 define('ASSET_URL',SITE_URL."assets/");

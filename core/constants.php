@@ -13,6 +13,6 @@ if($_SERVER['HTTP_HOST'] === 'localhost'){
     define('SITE_URL','http://'.$_SERVER['HTTP_HOST'].'/');
 }
 
-define('ASSET_URL',SITE_URL."/assets/");
+define('ASSET_URL',SITE_URL."assets/");
 define('SITE_LOGO',ASSET_URL."img/logo.png");
 define('SITE_FAVICON',ASSET_URL."img/logo.png");

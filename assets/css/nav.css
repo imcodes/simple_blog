@@ -72,6 +72,7 @@ ul.dropdown-menu.logged-in.show {
         transition: all 1s ease;
     }
     .navs.open{
-        left:0
+        left:0;
+        z-index: 999;
     }
 }

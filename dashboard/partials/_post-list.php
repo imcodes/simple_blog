@@ -42,7 +42,7 @@ $PostLists = $Post->find(['user_id'=>$_SESSION['user']['id']]);
                 <td>$updated_at</td>
                 <td>
                 <a href='$edit_link' class='btn btn-sm btn-primary'><i class='fa fa-edit'></i></a>
-                <a href='$delete_link' class='btn btn-sm btn-danger'><i class='fa fa-trash'></i></a>
+                <a href='#' data-bs-toggle="modal" data-bs-target="#modal" class='btn btn-sm btn-danger'><i class='fa fa-trash'></i></a>
                 </td>
                 </tr>
             TABLE;
@@ -59,6 +59,31 @@ $PostLists = $Post->find(['user_id'=>$_SESSION['user']['id']]);
         <?php
     }
      ?>
+</div>
+<div class="modal modal-fade" id='modal' tabindex='-1' aria-labelledby='examplemodallabel' aria-hidden="true">
+    <div class="modal-dialog">
+        <div class='modal-content'>
+            <div class="modal-header">
+            </div>
+            <div class='modal-body'>
+                <div class="text-danger"> Are you sure you want to delete this post</div>
+            </div>
+            <div  class="modal-footer">
+                <div  type="button" class="btn-danger btn"
+                data-bs-dismiss="modal"
+                >
+                    no
+                </div>
+                <div class=" btn btn-primary"
+                type="button"
+                >
+                <a href="<?= SITE_URL."dashboard?page=delete-post&pid=$id"?>"class="text-white">yes</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>

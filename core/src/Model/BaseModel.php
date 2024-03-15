@@ -72,7 +72,9 @@ class BaseModel{
     }
 
 public function delete($id){
-    //
+    $sql = "DELETE FROM {$this->getTableName()} where id = $id";
+    $smt = $this->db->prepare($sql);
+    return ($smt->execute()) ? true : false;
 }    
 
 /**

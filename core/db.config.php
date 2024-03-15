@@ -1,12 +1,12 @@
 <?php
 
-# DEFINING CONSTANTS FOR OUR LOCAL DATABASE CONNECTION
-/* define('DRIVER','mysql');
-define('HOST','localhost'); //sql host server
-define('PORT','3306');
-define('USER','root'); //sql user connection username
-define('PASSWORD',''); //sql user connection password
-define('DBNAME','demo_blogdb'); //Database name */
+// # DEFINING CONSTANTS FOR OUR LOCAL DATABASE CONNECTION
+// define('DRIVER','mysql');
+// define('HOST','localhost'); //sql host server
+// define('PORT','3306');
+// define('USER','root'); //sql user connection username
+// define('PASSWORD',''); //sql user connection password
+// define('DBNAME','demo_blogdb'); //Database name
 
 # DEFINING CONSTANTS FOR OUR REMOTE DATABASE CONNECTION
 define('DRIVER','mysql');
